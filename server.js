@@ -5,12 +5,14 @@ import session from "express-session";
 import exphbs from "express-handlebars";
 import path from "path";
 import passport from "passport";
+import dotenv from "dotenv";
+import compression from "compression";
 
-import "./src/db/config.js";
+import "./src/dataBase/config.js";
 import MongoStore from "connect-mongo";
 
 const app = express();
-
+dotenv.config();
 /*============================[Middlewares]============================*/
 
 /*----------- Session -----------*/
@@ -27,6 +29,41 @@ app.use(
     },
   })
 );
+
+/*----------- Socket.io -----------*/
+// import { HttpServer } from 'http';
+// import { IOServer } from 'socket.io';
+import { createServer } from "http";
+import { Server } from "socket.io";
+
+const httpServer = createServer();
+const io = new Server(httpServer);
+//socket.io
+// const httpServer = new HttpServer(app);
+// const io = new IOServer(httpServer);
+
+//socket.io etablecemos comunicacion
+io.on('connection', (socket) => {
+  console.log('un cliente se ha conectado');
+  socket.emit('productos', productos);
+  socket.emit('mensajes', mensajes);
+
+  socket.on('nuevo-producto', data => {
+      console.log('servidor productos');
+      console.log('data nuevo-producto: ', data);
+      setProducto(data)
+      io.sockets.emit('productos', productos);
+      modBD.insertProductMysql(data);
+  });
+
+  socket.on('nuevo-mensaje', data => {
+      console.log('servidor mensajes');
+      console.log('data nuevo-mensaje: ', data);
+      mensajes.push(data);
+      io.sockets.emit('mensajes', mensajes);
+      modBD.insertProductSqlite(data);
+  });
+});
 
 /*----------- Passport -----------*/
 //manejo de autenticacion
@@ -45,18 +82,23 @@ app.engine(
 );
 app.set("view engine", ".hbs");
 
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 /*----------- Gzip -----------*/
 app.use(compression());
 
+/*----------- Winston Logger -----------*/
+import logger from "./src/utils/logger.js";
+
+
 /*============================[Rutas]============================*/
 import router from "./src/routes/index.js";
 app.use("/", router);
 
 /*============================[Servidor]============================*/
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //levantamos el servidor
 const server = app.listen(PORT, () => {
