@@ -3,13 +3,14 @@ import carritosDao from '../daos/controller.js';
 import { Router } from "express";
 
 const routerCarrito = Router();
+const carritosDaoController = carritosDao.carritosDao;
 
 routerCarrito.post('/', async (req,res) => {
     console.log('POSTcarrito request recibido');
     const carrito = {
         timestamp:  Date.now(),
     };
-    const newCarrito = await carritosDao.created(carrito);
+    const newCarrito = await carritosDaoController.created(carrito);
     res.status(201).json({
         result: 'Carrito Agregado',
         NuevoCarrito: newCarrito
@@ -19,7 +20,7 @@ routerCarrito.post('/', async (req,res) => {
 routerCarrito.delete('/:id', async(req,res) => {
     console.log('DELETEcarrito request recibido');
     const id = Number(req.params.id);
-    const carritoBorrado = await carritosDao.delete(id);
+    const carritoBorrado = await carritosDaoController.delete(id);
     res.status(200).json({
         result: 'Carrito Borrado',
         id: req.params.id,
@@ -31,7 +32,7 @@ routerCarrito.delete('/:id', async(req,res) => {
 // routerCarrito.get('/:id/productos', async (req,res) => {
 //     console.log('GET request recibido con id');
 //     const id = Number(req.params.id);
-//     const carrito = await carritosDao.readOne(id);
+//     const carrito = await carritosDaoController.readOne(id);
 //     res.send(carrito);
 // });
 
@@ -40,11 +41,11 @@ routerCarrito.delete('/:id', async(req,res) => {
 //     const idCarrito = Number(req.params.id);
 //     const idProducto = req.body.id;
 
-//     const carrito = await carritosDao.readOne(idCarrito);
+//     const carrito = await carritosDaoController.readOne(idCarrito);
 //     const producto = await productosDao.readOne(idProducto);
     
 //     carrito.productos.push(producto);
-//     await carritosDao.update(idCarrito, carrito)
+//     await carritosDaoController.update(idCarrito, carrito)
 
 //     res.status(201).json({
 //         result: 'Producto agregado al carrito',
@@ -57,13 +58,13 @@ routerCarrito.delete('/:id', async(req,res) => {
 //     const idCarrito = Number(req.params.id);
 //     const idCarritoProd = Number(req.params.id_prod);
 
-//     const carrito = await carritosDao.readOne(idCarrito);
+//     const carrito = await carritosDaoController.readOne(idCarrito);
 
 //     const index = carrito.productos.findIndex(prod => prod.id == idCarritoProd);
 
 //     if(index !== -1){
 //         carrito.productos.splice(index,1);
-//         await carritosDao.update(idCarrito,carrito);
+//         await carritosDaoController.update(idCarrito,carrito);
 //     }
 
 //     res.status(200).json({

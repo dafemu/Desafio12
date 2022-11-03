@@ -3,9 +3,12 @@ import { Router } from "express";
 
 const routerProductos = Router();
 
+const productosDaoController = productosDao.productosDao;
+
 routerProductos.get('/', async (req, res) => {
     console. log('GET request recibido');
-    const productos = await productosDao.read();
+    console. log('productosDao: ', productosDao);
+    const productos = await productosDaoController.read();
     res.status(200).json({
         result: 'Productos',
         ListadoProductos : productos,
@@ -15,7 +18,7 @@ routerProductos.get('/', async (req, res) => {
 routerProductos.get('/:id', async (req,res) => {
     console.log('GET request recibido con id');
     const id = Number(req.params.id);
-    const producto = productosDao.readOne(id);
+    const producto = productosDaoController.readOne(id);
     res.send(producto);
 });
 
@@ -30,7 +33,7 @@ routerProductos.post('/', async (req,res) => {
         precio: req.query.precio,
         stock: req.query.stock,
     };
-    const newProducto = await productosDao.created(producto);
+    const newProducto = await productosDaoController.created(producto);
     res.status(201).json({
         result: 'Producto Agregado',
         NuevoProducto: newProducto
@@ -49,7 +52,7 @@ routerProductos.put('/:id', async (req,res) => {
     productoEncontrado.precio = req.query.precio;
     productoEncontrado.stock = req.query.stock;
 
-    await productosDao.update(id,productoEncontrado);
+    await productosDaoController.update(id,productoEncontrado);
     res.status(201).json({
         result: 'Producto Actualizado',
         id: req.params.id,
@@ -60,7 +63,7 @@ routerProductos.put('/:id', async (req,res) => {
 routerProductos.delete('/:id', async (req,res) => {
     console.log('DELETE request recibido');
     const id = Number(req.params.id);
-    const productoBorrado = await productosDao.delete(id);
+    const productoBorrado = await productosDaoController.delete(id);
     res.status(200).json({
         result: 'Producto Borrado',
         id: req.params.id,
