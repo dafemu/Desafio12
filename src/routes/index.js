@@ -11,6 +11,7 @@ import register from "./register.js";
 import home from "./home.js";
 import productos from "./productos.js";
 import carrito from "./carrito.js";
+import error from "./error.js";
 
 //routas
 router.use("/datos", datos);
@@ -23,5 +24,7 @@ router.use("/", home);
 router.use("/api/randoms", random);
 router.use('/api/productos', productos);
 router.use('/api/carrito', carrito);
+
+router.use("*", error);
 
 export default router;

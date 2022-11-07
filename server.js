@@ -16,10 +16,17 @@ dotenv.config();
 /*============================[Middlewares]============================*/
 
 /*----------- Session -----------*/
+const advanceOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 app.use(cookieParser());
 app.use(
   session({
-    store: new MongoStore({ mongoUrl: "mongodb://localhost/sesiones" }),
+    store: new MongoStore({ 
+        mongoUrl: "mongodb://localhost:27017/passport-mongo",
+        mongoOptions: advanceOptions,
+      }),
     secret: "1234567890!@#$%^&*()",
     resave: true,
     saveUninitialized: true,
@@ -49,6 +56,7 @@ io.on('connection', (socket) => {
   socket.emit('mensajes', mensajes);
 
   socket.on('nuevo-producto', data => {
+    logger.info(`Mensaje: Nuevo mensaje - time: ${new Date().toLocaleString()}`);
       console.log('servidor productos');
       console.log('data nuevo-producto: ', data);
       setProducto(data)
@@ -57,6 +65,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('nuevo-mensaje', data => {
+    logger.info(`Mensaje: Nuevo mensaje - time: ${new Date().toLocaleString()}`);
       console.log('servidor mensajes');
       console.log('data nuevo-mensaje: ', data);
       mensajes.push(data);

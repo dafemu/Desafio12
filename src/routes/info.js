@@ -1,5 +1,6 @@
 import { Router } from "express";
 import minimist from "minimist";
+import logger from '../utils/logger.js';
 
 const infoRouter = Router();
 
@@ -8,6 +9,10 @@ const options = { alias: { p: "puerto", d: "debug" } };
 const valueMinimist = minimist(process.argv.slice(2), options);
 
 infoRouter.get("/", function (req, res) {
+  const { method } = req;
+  const time = new Date().toLocaleString();
+  logger.info(`Ruta '/info' - con metodo: ${method} - time: ${time}`);
+
     res.send({
       Arguments: valueMinimist,
       OperatingSystem: process.platform,
