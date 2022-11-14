@@ -1,5 +1,7 @@
 import winston from "winston";
 
+const NODE_ENV = process.env.NODE_ENV || "PROD";
+
 function buildProdLogger() {
   const prodLogger = winston.createLogger({
     transports: [
@@ -19,7 +21,7 @@ function buildDevLogger() {
 
 let logger = null;
 
-if (process.env.NODE_ENV === "PROD") {
+if (NODE_ENV === "PROD") {
   logger = buildProdLogger();
 } else {
   logger = buildDevLogger();
