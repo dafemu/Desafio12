@@ -107,7 +107,7 @@ import router from "./src/routes/index.js";
 app.use("/", router);
 
 /*============================[Servidor]============================*/
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 //levantamos el servidor
 const server = app.listen(PORT, () => {
