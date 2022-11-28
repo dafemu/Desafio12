@@ -4,3 +4,15 @@
 {"level":"warn","message":"Ruta / con método GET no implementada"}
 {"level":"warn","message":"Ruta / con método GET no implementada"}
 {"level":"warn","message":"Ruta / con método GET no implementada"}
+{"level":"info","message":"Ruta '/home' - con metodo: GET - time: 27/11/2022 19:05:13"}
+{"level":"info","message":"Ruta '/login' - con metodo: GET - time: 27/11/2022 19:05:13"}
+{"level":"warn","message":"Ruta / con método GET no implementada"}
+{"level":"warn","message":"Ruta / con método GET no implementada"}
+{"level":"warn","message":"Ruta / con método GET no implementada"}
+{"level":"warn","message":"Ruta / con método GET no implementada"}
+{"level":"info","message":"Ruta '/login' - con metodo: POST - time: 27/11/2022 19:05:21"}
+{"level":"info","message":"Ruta '/datos' - con metodo: GET - time: 27/11/2022 19:05:21"}
+{"level":"warn","message":"Ruta / con método GET no implementada"}
+{"level":"warn","message":"Ruta / con método GET no implementada"}
+{"level":"warn","message":"Ruta / con método GET no implementada"}
+{"level":"warn","message":"Ruta / con método GET no implementada"}

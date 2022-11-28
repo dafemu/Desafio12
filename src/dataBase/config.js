@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 // mongoose.connect("mongodb://localhost:27017/passport-mongo");
-mongoose.connect("mongodb://localhost:27017/passport-mongo", { 
+// mongodb+srv://david:YTLQ_!e2@#hzKfc@cluster0.ixthdm7.mongodb.net/?retryWrites=true&w=majority
+mongoose.connect("mongodb+srv://david:Fernando1234.@cluster0.ixthdm7.mongodb.net/?retryWrites=true&w=majority", { 
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
