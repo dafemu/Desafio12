@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(
   session({
     store: new MongoStore({ 
-        mongoUrl: "mongodb://localhost:27017/passport-mongo",
+        mongoUrl: "mongodb+srv://david:YTLQ_!e2@#hzKfc@cluster0.ixthdm7.mongodb.net/?retryWrites=true&w=majority",
         mongoOptions: advanceOptions,
       }),
     secret: "1234567890!@#$%^&*()",
